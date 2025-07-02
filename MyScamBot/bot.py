@@ -1,8 +1,8 @@
+import os
 import asyncio
 from aiogram import Bot, Dispatcher
-from aiogram.types import Message, InputFile
+from aiogram.types import Message, FSInputFile
 from aiogram.filters import Command
-from aiogram.exceptions import TelegramBadRequest
 
 # 🔐 Токен и ID администратора
 BOT_TOKEN = "8046924394:AAHogO7tHUdt7m8ZHNxZnt6gF2mSLHxBYng"
@@ -16,11 +16,12 @@ guarantors = {}  # username -> user_id
 scammers = {}    # username -> dict
 
 # 📷 Отправка изображения или текста, если фото нет
-async def send_photo_or_text(message: Message, image: str, text: str):
+async def send_photo_or_text(message: Message, image_path: str, text: str):
     try:
-        photo = InputFile(image)
+        photo = FSInputFile(image_path)
         await message.answer_photo(photo, caption=text)
-    except Exception:
+    except Exception as e:
+        print(f"Ошибка при отправке фото '{image_path}': {e}")
         await message.answer(text)
 
 # 🚀 /start
@@ -155,6 +156,8 @@ async def remove_scam(message: Message):
 
 # 🔁 Запуск
 async def main():
+    print("Текущая папка:", os.getcwd())
+    print("Файлы в папке:", os.listdir())
     print("Бот запущен...")
     await dp.start_polling(bot)
 
