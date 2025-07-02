@@ -6,7 +6,7 @@ from aiogram.filters import Command
 
 # 🔐 Токен и ID администратора
 BOT_TOKEN = "8046924394:AAHogO7tHUdt7m8ZHNxZnt6gF2mSLHxBYng"
-ADMIN_ID = 7620745738  # Замени на свой Telegram ID
+ADMIN_ID = 7634857359  # Замени на свой Telegram ID
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
